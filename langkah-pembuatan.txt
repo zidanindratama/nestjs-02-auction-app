@@ -1,0 +1,52 @@
+==================================================
+1. Install prisma
+npm i -D prisma
+
+2. Install @prisma/client
+npm i @prisma/client
+
+3. Inisialisasi prisma ke project
+npx prisma init
+
+4. Buat model di schema kayak biasa
+
+5. Migration
+npx prisma migrate dev --name nama_migrasi
+
+6. Abis itu baru bisa npm run start:dev, kalo ga gitu bakalan error
+==================================================
+1. Buat module
+nest generate module users
+
+2. Buat controller
+nest generate controller users
+
+3. Buat service
+nest generate service users
+
+4. Install buat DTO
+npm i class-validator class-transformer
+==================================================
+1. Install ini buat passport-jwt
+npm install --save @nestjs/passport @nestjs/jwt passport-jwt
+
+2. Install ini buat supprt typescript
+npm install --save-dev @types/passport-jwt
+
+3. Buat dimasukin ke JWT_REFRESH_SECRET & JWT_REFRESH_SECRET
+node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"
+
+4. Instal argon2
+npm install argon2
+
+5. Buat config nest
+npm i --save @nestjs/config
+==================================================
+1. install clodinary
+npm install cloudinary
+
+2. install streamifier
+ npm install streamifier
+
+3. npm install multer
+npm install --save-dev @types/multer
