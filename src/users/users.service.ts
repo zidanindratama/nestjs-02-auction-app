@@ -86,19 +86,15 @@ export class UsersService {
 
   async deleteUserById(id: string) {
     const user = await this.getUserById(id);
-
     if (!user) throw new HttpException('User not found!', 404);
 
-    return this.prisma.user.delete({
+    await this.prisma.user.delete({
       where: { id: id },
-      select: {
-        id: true,
-        role: true,
-        isActive: true,
-        email: true,
-        name: true,
-        image: true,
-      },
     });
+
+    return {
+      message: 'Successfully delete the user!',
+      statusCode: 200,
+    };
   }
 }
