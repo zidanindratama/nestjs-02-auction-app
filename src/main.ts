@@ -77,7 +77,7 @@ async function bootstrap() {
       credentials: true,
       optionsSuccessStatus: 200,
       // @ts-ignore
-      origin: ['http://localhost:3000', 'https://tax-center-brevet.vercel.app'],
+      origin: ['http://localhost:3000', 'https://auction-app-pbo.vercel.app'],
     }),
   );
 
