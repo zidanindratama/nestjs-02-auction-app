@@ -8,22 +8,11 @@ import cors from 'cors-ts';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.use(
-    cors({
-      allowedHeaders: ['content-type'],
-      origin: /https:\/\/auction-app-pbo\.vercel\.app/,
-      optionsSuccessStatus: 200,
-      credentials: true,
-      preflightContinue: true,
-    }),
-  );
+  app.enableCors({
+    origin: true,
+    credentials: true,
+  });
 
-  // app.enableCors({
-  //   allowedHeaders: ['content-type'],
-  //   origin: true,
-  //   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'],
-  //   credentials: true,
-  // });
   app.use(cookieParser());
   await app.listen(3100);
 }
