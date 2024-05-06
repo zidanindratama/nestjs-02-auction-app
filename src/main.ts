@@ -14,6 +14,7 @@ async function bootstrap() {
       origin: 'https://auction-app-pbo.vercel.app',
       optionsSuccessStatus: 200,
       credentials: true,
+      preflightContinue: true,
     }),
   );
 
