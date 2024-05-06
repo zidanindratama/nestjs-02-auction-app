@@ -19,9 +19,11 @@ model User {
   isActive  Boolean  @default(true)
   email     String   @unique
   name      String
+  bio       String?
   image     String?
   password  String
   item      Item[]
+  bids      Bid[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -39,8 +41,20 @@ model Item {
   endBidDate   DateTime
   seller       User       @relation(fields: [sellerId], references: [id], onDelete: Cascade)
   sellerId     String     @db.ObjectId
+  bids         Bid[]
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
+}
+
+model Bid {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  amount    Float
+  bidder    User     @relation(fields: [bidderId], references: [id])
+  bidderId  String   @db.ObjectId
+  item      Item     @relation(fields: [itemId], references: [id])
+  itemId    String   @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum Role {

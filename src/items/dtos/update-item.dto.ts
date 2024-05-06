@@ -12,9 +12,9 @@ enum ItemStatus {
 }
 
 export class UpdateItemDto {
-  @IsBoolean()
+  @IsString()
   @IsOptional()
-  isActive?: boolean;
+  isActive?: string;
 
   @IsEnum(ItemStatus)
   @IsOptional()
@@ -27,6 +27,14 @@ export class UpdateItemDto {
   @IsString()
   @IsOptional()
   price?: string;
+
+  @IsString()
+  @IsOptional()
+  startingBid?: string;
+
+  @IsString()
+  @IsOptional()
+  highestBid?: string;
 
   @IsString()
   @IsOptional()

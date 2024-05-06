@@ -20,7 +20,11 @@ export class ItemsService {
     const where: Prisma.ItemWhereInput = {};
 
     if (query.isActive !== undefined) {
-      where.isActive = query.isActive;
+      if (query.isActive === 'true') {
+        where.isActive = true;
+      } else {
+        where.isActive = false;
+      }
     }
 
     if (query.status) {
@@ -39,7 +43,24 @@ export class ItemsService {
       where.sellerId = query.sellerId;
     }
 
-    return this.prisma.item.findMany({
+    const itemCount = await this.prisma.item.count();
+    const activeItemCount = await this.prisma.item.count({
+      where: {
+        isActive: {
+          equals: true,
+        },
+      },
+    });
+
+    const permittedItemCount = await this.prisma.item.count({
+      where: {
+        status: {
+          equals: 'PERMITTED',
+        },
+      },
+    });
+
+    const items = await this.prisma.item.findMany({
       where,
       skip,
       take,
@@ -57,12 +78,22 @@ export class ItemsService {
         seller: { select: { id: true, name: true, email: true } },
       },
     });
+
+    return {
+      items,
+      meta: {
+        count: itemCount,
+        activeItemCount,
+        permittedItemCount,
+      },
+    };
   }
 
   async createItem(
     sellerId: string,
     startingBidFloat: number,
     highestBidFloat: number,
+    isActive: string,
     createItemData: Prisma.ItemCreateWithoutSellerInput,
   ) {
     const isSeller = await this.usersService.getUserById(sellerId);
@@ -75,6 +106,7 @@ export class ItemsService {
         sellerId: sellerId,
         startingBid: startingBidFloat,
         highestBid: highestBidFloat,
+        isActive: isActive === 'true' ? true : false,
       },
       select: {
         id: true,
@@ -120,7 +152,11 @@ export class ItemsService {
     const where: Prisma.ItemWhereInput = {};
 
     if (query.isActive !== undefined) {
-      where.isActive = query.isActive;
+      if (query.isActive === 'true') {
+        where.isActive = true;
+      } else {
+        where.isActive = false;
+      }
     }
 
     if (query.status) {
@@ -163,6 +199,9 @@ export class ItemsService {
 
   async updateItemById(
     id: string,
+    isActive: string,
+    startingBidFloat: number,
+    highestBidFloat: number,
     updateItemData: Prisma.ItemUpdateWithoutSellerInput,
   ) {
     const item = await this.getItemById(id);
@@ -170,7 +209,12 @@ export class ItemsService {
 
     return this.prisma.item.update({
       where: { id: id },
-      data: updateItemData,
+      data: {
+        ...updateItemData,
+        isActive: isActive === 'true' ? true : false,
+        startingBid: startingBidFloat,
+        highestBid: highestBidFloat,
+      },
       select: {
         id: true,
         name: true,

@@ -13,7 +13,7 @@ export class UpdateUserDto {
 
   @IsString()
   @IsOptional()
-  isActive?: boolean;
+  isActive?: string;
 
   @IsEmail()
   @IsOptional()
@@ -26,6 +26,10 @@ export class UpdateUserDto {
   @IsString()
   @IsOptional()
   image?: string;
+
+  @IsString()
+  @IsOptional()
+  bio?: string;
 
   @IsString()
   @IsOptional()

@@ -43,7 +43,6 @@ export class ItemsController {
     return item;
   }
 
-  @UseGuards(AccessTokenGuard, RoleGuard)
   @Get('/seller/:id')
   async getItemBySellerId(
     @Param('id') id: string,
@@ -66,13 +65,14 @@ export class ItemsController {
       const uploadedImage = await this.cloudinaryService.uploadFile(image);
       body.image = uploadedImage.secure_url;
     }
-    const { sellerId, startingBid, highestBid, ...rest } = body;
+    const { sellerId, startingBid, highestBid, isActive, ...rest } = body;
     const startingBidFloat = parseFloat(startingBid);
     const highestBidFloat = parseFloat(highestBid);
     return this.itemsService.createItem(
       sellerId,
       startingBidFloat,
       highestBidFloat,
+      isActive,
       rest,
     );
   }
@@ -90,8 +90,16 @@ export class ItemsController {
       const uploadedImage = await this.cloudinaryService.uploadFile(image);
       body.image = uploadedImage.secure_url;
     }
-
-    return this.itemsService.updateItemById(id, body);
+    const { isActive, startingBid, highestBid, ...rest } = body;
+    const startingBidFloat = parseFloat(startingBid);
+    const highestBidFloat = parseFloat(highestBid);
+    return this.itemsService.updateItemById(
+      id,
+      isActive,
+      startingBidFloat,
+      highestBidFloat,
+      rest,
+    );
   }
 
   @Roles(Role.ADMINISTRATOR, Role.SELLER)

@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { ItemsModule } from './items/items.module';
+import { BidsModule } from './bids/bids.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ItemsModule } from './items/items.module';
     AuthModule,
     CloudinaryModule,
     ItemsModule,
+    BidsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

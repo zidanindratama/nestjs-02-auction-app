@@ -10,6 +10,10 @@ export class QueryUsersDto {
   pgSize?: string;
 
   @IsString()
+  @IsOptional()
+  name?: string;
+
+  @IsString()
   @IsEmail()
   email?: string;
 }

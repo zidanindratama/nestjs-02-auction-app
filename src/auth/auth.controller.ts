@@ -37,7 +37,7 @@ export class AuthController {
       await this.authService.signUp(createUserDto);
 
     if (accessToken && refreshToken)
-      response.cookie('refreshToken', refreshToken, { httpOnly: true });
+      response.cookie('refreshToken', refreshToken, { httpOnly: false });
 
     return { ...user, access_token: accessToken };
   }
@@ -55,7 +55,7 @@ export class AuthController {
       await this.authService.signIn(authDto);
 
     if (accessToken && refreshToken)
-      response.cookie('refreshToken', refreshToken, { httpOnly: true });
+      response.cookie('refreshToken', refreshToken, { httpOnly: false });
 
     return { ...user, access_token: accessToken };
   }

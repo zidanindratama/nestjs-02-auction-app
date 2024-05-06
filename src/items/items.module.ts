@@ -10,5 +10,6 @@ import { AccessControlService } from 'src/auth/shared/access-control.service';
   imports: [PrismaModule, CloudinaryModule, UsersModule],
   controllers: [ItemsController],
   providers: [ItemsService, AccessControlService],
+  exports: [ItemsService],
 })
 export class ItemsModule {}

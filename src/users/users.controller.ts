@@ -51,17 +51,18 @@ export class UsersController {
   }
 
   @Patch('/:id')
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor('image'))
   async updateUserById(
     @Param('id') id: string,
     @Body() body: UpdateUserDto,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() image: Express.Multer.File,
   ) {
-    if (file) {
-      const uploadedImage = await this.cloudinaryService.uploadFile(file);
+    if (image) {
+      const uploadedImage = await this.cloudinaryService.uploadFile(image);
       body.image = uploadedImage.secure_url;
     }
-    return this.usersService.updateUserById(id, body);
+    const { isActive, ...rest } = body;
+    return this.usersService.updateUserById(id, isActive, rest);
   }
 
   @Roles(Role.ADMINISTRATOR)

@@ -13,9 +13,9 @@ enum ItemStatus {
 }
 
 export class QueryItemsDto {
-  @IsBoolean()
+  @IsString()
   @IsOptional()
-  isActive?: boolean;
+  isActive?: string;
 
   @IsEnum(ItemStatus)
   @IsOptional()

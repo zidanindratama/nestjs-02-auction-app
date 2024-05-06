@@ -7,14 +7,20 @@ import { QueryUsersDto } from './dtos/query-users.dto';
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  getAllUser(query: QueryUsersDto) {
+  async getAllUser(query: QueryUsersDto) {
     const pgNum = +(query.pgNum ?? 1);
     const pgSize = +(query.pgSize ?? 10);
 
     const skip = (pgNum - 1) * pgSize;
     const take = pgSize;
 
-    return this.prisma.user.findMany({
+    const where: Prisma.UserWhereInput = {};
+    if (query.name) {
+      where.name = { contains: query.name };
+    }
+
+    const users = await this.prisma.user.findMany({
+      where,
       skip,
       take,
       select: {
@@ -24,8 +30,40 @@ export class UsersService {
         email: true,
         name: true,
         image: true,
+        bio: true,
       },
     });
+
+    const userCount = await this.prisma.user.count();
+    const buyerCount = await this.prisma.user.count({
+      where: {
+        role: {
+          equals: 'BUYER',
+        },
+        isActive: {
+          equals: true,
+        },
+      },
+    });
+    const sellerCount = await this.prisma.user.count({
+      where: {
+        role: {
+          equals: 'SELLER',
+        },
+        isActive: {
+          equals: true,
+        },
+      },
+    });
+
+    return {
+      users,
+      meta: {
+        count: userCount,
+        buyerCount,
+        sellerCount,
+      },
+    };
   }
 
   getUserById(id: string) {
@@ -38,6 +76,7 @@ export class UsersService {
         email: true,
         name: true,
         image: true,
+        bio: true,
       },
     });
   }
@@ -62,17 +101,25 @@ export class UsersService {
         email: true,
         name: true,
         image: true,
+        bio: true,
       },
     });
   }
 
-  async updateUserById(id: string, updateUserData: Prisma.UserUpdateInput) {
+  async updateUserById(
+    id: string,
+    isActive: string,
+    updateUserData: Prisma.UserUpdateInput,
+  ) {
     const user = await this.getUserById(id);
     if (!user) throw new HttpException('User not found!', 404);
 
     return this.prisma.user.update({
       where: { id: id },
-      data: updateUserData,
+      data: {
+        ...updateUserData,
+        isActive: isActive === 'true' ? true : false,
+      },
       select: {
         id: true,
         role: true,
@@ -80,6 +127,7 @@ export class UsersService {
         email: true,
         name: true,
         image: true,
+        bio: true,
       },
     });
   }
