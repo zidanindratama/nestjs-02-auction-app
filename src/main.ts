@@ -9,10 +9,8 @@ async function bootstrap() {
 
   app.enableCors({
     allowedHeaders: ['content-type'],
-    origin: [
-      'http://localhost:3000',
-      'https://auction-app-pbo.vercel.app/sign-in',
-    ],
+    origin: ['http://localhost:3000', 'https://auction-app-pbo.vercel.app'],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'],
     credentials: true,
   });
   app.use(cookieParser());
