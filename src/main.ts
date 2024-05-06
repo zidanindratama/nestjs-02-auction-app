@@ -11,7 +11,7 @@ async function bootstrap() {
   app.use(
     cors({
       allowedHeaders: ['content-type'],
-      origin: 'https://auction-app-pbo.vercel.app',
+      origin: /https:\/\/auction-app-pbo\.vercel\.app/,
       optionsSuccessStatus: 200,
       credentials: true,
       preflightContinue: true,
