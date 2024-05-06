@@ -9,12 +9,12 @@ import {
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { CreateUserDto } from 'src/users/dtos/create-user.dto';
 import { Request, Response } from 'express';
+import { AuthService } from './auth.service';
+import { AccessTokenGuard } from './guards/access-token.guard';
 import { AuthDto } from './dtos/auth.dto';
 import { RefreshTokenGuard } from './guards/refresh-token.guard';
-import { AccessTokenGuard } from './guards/access-token.guard';
+import { CreateUserDto } from './../users/dtos/create-user.dto';
 
 @Controller('auth')
 export class AuthController {

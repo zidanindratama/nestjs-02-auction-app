@@ -5,11 +5,10 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from './../prisma/prisma.service';
+import { UsersService } from './../users/users.service';
+import { ItemsService } from './../items/items.service';
 import { QueryBidsDto } from './dtos/query-bids.dto';
-import { CreateBidDto } from './dtos/create-bid.dto';
-import { UsersService } from 'src/users/users.service';
-import { ItemsService } from 'src/items/items.service';
 
 @Injectable()
 export class BidsService {

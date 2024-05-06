@@ -11,15 +11,15 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { UsersService } from './users.service';
 import { QueryUsersDto } from './dtos/query-users.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
-import { AccessTokenGuard } from 'src/auth/guards/access-token.guard';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
-import { Roles } from 'src/auth/decorators/roles.decorator';
-import { RoleGuard } from 'src/auth/guards/role.guard';
-import { Role } from 'src/auth/enums/role.enum';
+import { AccessTokenGuard } from './../auth/guards/access-token.guard';
+import { CloudinaryService } from './../cloudinary/cloudinary.service';
+import { RoleGuard } from './../auth/guards/role.guard';
+import { Role } from './../auth/enums/role.enum';
+import { Roles } from './../auth/decorators/roles.decorator';
 
 @UseGuards(AccessTokenGuard)
 @Controller('/protected/users')

@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
-import { PrismaModule } from 'src/prisma/prisma.module';
-import { AccessControlService } from 'src/auth/shared/access-control.service';
-import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
+import { PrismaModule } from './../prisma/prisma.module';
+import { AccessControlService } from '../auth/shared/access-control.service';
+import { CloudinaryModule } from './../cloudinary/cloudinary.module';
 
 @Module({
   imports: [PrismaModule, CloudinaryModule],

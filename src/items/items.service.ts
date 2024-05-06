@@ -1,8 +1,8 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { QueryItemsDto } from './dtos/query-items.dto';
 import { Prisma } from '@prisma/client';
-import { UsersService } from 'src/users/users.service';
+import { QueryItemsDto } from './dtos/query-items.dto';
+import { PrismaService } from './../prisma/prisma.service';
+import { UsersService } from './../users/users.service';
 
 @Injectable()
 export class ItemsService {

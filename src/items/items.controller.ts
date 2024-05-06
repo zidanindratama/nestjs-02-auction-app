@@ -13,15 +13,15 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ItemsService } from './items.service';
-import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { CloudinaryService } from '../cloudinary/cloudinary.service';
 import { QueryItemsDto } from './dtos/query-items.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateItemDto } from './dtos/create-item.dto';
 import { UpdateItemDto } from './dtos/update-item.dto';
-import { AccessTokenGuard } from 'src/auth/guards/access-token.guard';
-import { Roles } from 'src/auth/decorators/roles.decorator';
-import { RoleGuard } from 'src/auth/guards/role.guard';
-import { Role } from 'src/auth/enums/role.enum';
+import { AccessTokenGuard } from './../auth/guards/access-token.guard';
+import { Roles } from './../auth/decorators/roles.decorator';
+import { RoleGuard } from './../auth/guards/role.guard';
+import { Role } from './../auth/enums/role.enum';
 
 @UseGuards(AccessTokenGuard)
 @Controller('/protected/items')

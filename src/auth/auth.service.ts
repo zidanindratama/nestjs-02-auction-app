@@ -1,10 +1,10 @@
 import { ForbiddenException, HttpException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { CreateUserDto } from 'src/users/dtos/create-user.dto';
-import { UsersService } from 'src/users/users.service';
 import * as argon2 from 'argon2';
 import { ConfigService } from '@nestjs/config';
 import { AuthDto } from './dtos/auth.dto';
+import { CreateUserDto } from './../users/dtos/create-user.dto';
+import { UsersService } from './../users/users.service';
 
 @Injectable()
 export class AuthService {
