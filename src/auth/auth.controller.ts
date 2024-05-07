@@ -36,10 +36,15 @@ export class AuthController {
     const { accessToken, refreshToken, ...user } =
       await this.authService.signUp(createUserDto);
 
-    if (accessToken && refreshToken)
-      response.cookie('refreshToken', refreshToken, { httpOnly: false });
+    // FIX LATER
+    // if (accessToken && refreshToken)
+    //   response.cookie('refreshToken', refreshToken, {
+    //     sameSite: process.env.NODE_ENV === 'development' ? 'lax' : 'none',
+    //     secure: process.env.NODE_ENV !== 'development',
+    //     httpOnly: true,
+    //   });
 
-    return { ...user, access_token: accessToken };
+    return { ...user, access_token: accessToken, refresh_token: refreshToken };
   }
 
   @Post('signin')
@@ -54,10 +59,15 @@ export class AuthController {
     const { accessToken, refreshToken, ...user } =
       await this.authService.signIn(authDto);
 
-    if (accessToken && refreshToken)
-      response.cookie('refreshToken', refreshToken, { httpOnly: false });
+    // FIX LATER
+    // if (accessToken && refreshToken)
+    //   response.cookie('refreshToken', refreshToken, {
+    //     sameSite: process.env.NODE_ENV === 'development' ? 'lax' : 'none',
+    //     secure: process.env.NODE_ENV !== 'development',
+    //     httpOnly: true,
+    //   });
 
-    return { ...user, access_token: accessToken };
+    return { ...user, access_token: accessToken, refresh_token: refreshToken };
   }
 
   @UseGuards(AccessTokenGuard)
@@ -67,6 +77,7 @@ export class AuthController {
 
     return this.authService.logout();
   }
+
   @UseGuards(RefreshTokenGuard)
   @Post('refresh-token')
   async refreshTokens(@Req() request: Request) {
